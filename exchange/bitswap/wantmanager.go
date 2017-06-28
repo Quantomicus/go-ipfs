@@ -73,11 +73,13 @@ type msgQueue struct {
 	done chan struct{}
 }
 
+// WantBlocks adds the given cids to the wantlist, tracked by the given session
 func (pm *WantManager) WantBlocks(ctx context.Context, ks []*cid.Cid, peers []peer.ID, ses uint64) {
 	log.Infof("want blocks: %s", ks)
 	pm.addEntries(ctx, ks, peers, false, ses)
 }
 
+// WantBlocks removes the given cids from the wantlist, tracked by the given session
 func (pm *WantManager) CancelWants(ctx context.Context, ks []*cid.Cid, peers []peer.ID, ses uint64) {
 	pm.addEntries(context.Background(), ks, peers, true, ses)
 }
